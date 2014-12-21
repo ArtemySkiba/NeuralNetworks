@@ -1,28 +1,65 @@
-# Compiled Object files
-*.slo
-*.lo
-*.o
+*.pidb
+*.userprefs
+*.DotSettings.user
+*.suo
+
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+# Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
+!packages/*/build/
+
+# MSTest test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+*_i.c
+*_p.c
+*.ilk
+*.meta
 *.obj
-
-# Precompiled Headers
-*.gch
 *.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.log
+*.scc
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.user
+[Pp]ackages
+packages/
+*.dgml
+*[Ss]tyle[Cc]op.[Cc]ache
 
-# Fortran module files
-*.mod
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
 
-# Executables
-*.exe
-*.out
-*.app
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
