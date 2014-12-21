@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using NeuralNetworks.MVVM;
@@ -79,10 +78,10 @@ namespace NeuralNetworks
 
         private void getFirstGroupSamples()
         {
-            List<Neural> firstMGroup = neurals.Where(n => n.W == T).ToList();
-            List<Neural> secondMGroup = neurals.Where(n => n.W > T / 2 && n.W < T).ToList();
-            List<Neural> thirdMGroup = neurals.Where(n => n.W == T / 2).ToList();
-            List<Neural> fourthMGroup = neurals.Where(n => n.W < T / 2).ToList();
+            List<Neural> firstMGroup = neurals.Where(ne => ne.W == T).ToList();
+            List<Neural> secondMGroup = neurals.Where(ne => ne.W > T / 2 && ne.W < T).ToList();
+            List<Neural> thirdMGroup = neurals.Where(ne => ne.W == T / 2).ToList();
+            List<Neural> fourthMGroup = neurals.Where(ne => ne.W < T / 2).ToList();
 
             //MessageBox.Show(string.Format("{0} {1} {2} {3}", firstMGroup.Count, secondMGroup.Count, thirdMGroup.Count,
             //    fourthMGroup.Count));
@@ -139,7 +138,17 @@ namespace NeuralNetworks
                     result.Add(new List<Neural>{fourthMGroup[i]});
                 }
             }
-            
+
+            foreach (var res in result)
+            {
+                int temp = 0;
+                foreach (var r in res)
+                {
+                    temp += r.W*Convert.ToInt32(r.X);
+                }
+                MessageBox.Show((temp == T).ToString());
+            }
+
         }
 
         #endregion
