@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using NeuralNetworks.MVVM;
@@ -35,6 +38,8 @@ namespace NeuralNetworks
             }
         }
 
+        public static int T { get; set; }
+
         private void updateGrid()
         {
             neurals.Clear();
@@ -65,10 +70,71 @@ namespace NeuralNetworks
             {
                 return fillCommand = fillCommand ?? new Command(() =>
                 {
-                    int a = 0;
-                    var b = neurals;
+                    getFirstGroupSamples();
+
                 });
             }
+        }
+
+        private void getFirstGroupSamples()
+        {
+            List<Neural> firstMGroup = neurals.Where(n => n.W == T).ToList();
+            List<Neural> secondMGroup = neurals.Where(n => n.W > T / 2 && n.W < T).ToList();
+            List<Neural> thirdMGroup = neurals.Where(n => n.W == T / 2).ToList();
+            List<Neural> fourthMGroup = neurals.Where(n => n.W < T / 2).ToList();
+
+            //MessageBox.Show(string.Format("{0} {1} {2} {3}", firstMGroup.Count, secondMGroup.Count, thirdMGroup.Count,
+            //    fourthMGroup.Count));
+
+            List<List<Neural>> result = new List<List<Neural>>();
+
+            firstMGroup.ForEach(m => result.Add(new List<Neural> { m }));
+
+            int fourthCount = fourthMGroup.Count;
+            if (fourthCount == 0)
+            {
+                secondMGroup.ForEach(m => result.Add(new List<Neural> { m }));
+            }
+            else
+            {
+                foreach (var m in secondMGroup)
+                {
+                    fourthCount = 0;
+                    var temp = new List<Neural> { m, fourthMGroup[fourthCount++] };
+                    if (fourthCount == fourthMGroup.Count)
+                    {
+                        fourthCount = 0;
+                    }
+                    result.Add(temp);
+                }
+            }
+
+            if (thirdMGroup.Count % 2 == 0)
+            {
+                for (int i = 0; i < thirdMGroup.Count - 1; i++)
+                {
+                    result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
+                }
+            }
+            else
+            {
+                for (int i = 0; i < thirdMGroup.Count - 2; i++)
+                {
+                    result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
+                }
+                var temp = new List<Neural> {thirdMGroup[thirdMGroup.Count - 1]};
+                if (fourthMGroup.Count > secondMGroup.Count)
+                {
+                    temp.Add(fourthMGroup[secondMGroup.Count]);
+                }
+                result.Add(temp);
+            }
+
+            if ()
+            {
+                
+            }
+            
         }
 
         #endregion

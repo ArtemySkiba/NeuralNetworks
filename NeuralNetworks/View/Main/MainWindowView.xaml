@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -19,16 +20,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Введите количество ИН:" Grid.Row="0" Grid.Column="0" Margin="5"/>
+        <TextBlock Text="Введите N:" Grid.Row="0" Grid.Column="0" Margin="5"/>
         <TextBox Text="{Binding N, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
-        <DataGrid Name="DataGrid" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Neurals}" Visibility="{Binding FillCommandEnable}" IsReadOnly="False" AutoGenerateColumns="False" CanUserAddRows="False">
+        <TextBlock Text="Введите порог T:" Grid.Row="1" Grid.Column="0" Margin="5"/>
+        <TextBox Text="{Binding T}" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+        <DataGrid Name="DataGrid" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Neurals}" Visibility="{Binding FillCommandEnable}" IsReadOnly="False" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Вес" Binding="{Binding W, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
+                <DataGridCheckBoxColumn Header="X" Binding="{Binding X, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
        
-        <Button Command="{Binding FillCommand}" Content="Заполнить" Grid.Row="2" Grid.Column="1" Margin="5"/>
+        <Button Command="{Binding FillCommand}" Content="Заполнить" Grid.Row="3" Grid.Column="1" Margin="5"/>
         
     </Grid>
 </Window>
