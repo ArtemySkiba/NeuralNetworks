@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using NeuralNetworks.MVVM;
@@ -87,7 +88,7 @@ namespace NeuralNetworks
             //    fourthMGroup.Count));
 
             List<List<Neural>> result = new List<List<Neural>>();
-
+            bool usedAllFourth = false;
             firstMGroup.ForEach(m => result.Add(new List<Neural> { m }));
 
             int fourthCount = fourthMGroup.Count;
@@ -103,6 +104,7 @@ namespace NeuralNetworks
                     var temp = new List<Neural> { m, fourthMGroup[fourthCount++] };
                     if (fourthCount == fourthMGroup.Count)
                     {
+                        usedAllFourth = true;
                         fourthCount = 0;
                     }
                     result.Add(temp);
@@ -130,9 +132,12 @@ namespace NeuralNetworks
                 result.Add(temp);
             }
 
-            if ()
+            if (!usedAllFourth)
             {
-                
+                for (int i = fourthCount; i < fourthMGroup.Count; i++)
+                {
+                    result.Add(new List<Neural>{fourthMGroup[i]});
+                }
             }
             
         }
