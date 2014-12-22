@@ -257,7 +257,7 @@ namespace NeuralNetworks
 
             if (check)
             {
-                Result += "Рассчётное количество 1 = " + (k + secondMGroup.Count + Math.Ceiling((decimal)q / 2)) + Environment.NewLine;
+                Result += "Рассчётное количество 1 = " + (k + secondMGroup.Count + Math.Ceiling((double)q / 2)) + Environment.NewLine;
             }
             else
             {
@@ -266,7 +266,7 @@ namespace NeuralNetworks
                 {
                     temp += r.Sum(rr => rr.W);
                 }
-                Result += "Рассчётное количество 1 = " + (Math.Ceiling((decimal)temp / T)) + Environment.NewLine;
+                Result += "Рассчётное количество 1 = " + (Math.Ceiling((double)temp / T)) + Environment.NewLine;
             }
         }
 
@@ -289,7 +289,7 @@ namespace NeuralNetworks
 
             if (check)
             {
-                Result += "Рассчётное количество 2 = " + (k + secondMGroup.Count + Math.Ceiling((decimal)q / 2)) + Environment.NewLine;
+                Result += "Рассчётное количество 2 = " + (k + secondMGroup.Count + Math.Ceiling((double)q / 2)) + Environment.NewLine;
             }
             else
             {
@@ -298,7 +298,7 @@ namespace NeuralNetworks
                 {
                     temp += r.Sum(rr => rr.W);
                 }
-                Result += "Рассчётное количество 2 = " + (Math.Ceiling((decimal)temp / (T - 1))) + Environment.NewLine;
+                Result += "Рассчётное количество 2 = " + (Math.Ceiling((double)temp / (T - 1))) + Environment.NewLine;
             }
         }
 
