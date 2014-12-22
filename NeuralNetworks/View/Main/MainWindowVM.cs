@@ -33,7 +33,7 @@ namespace NeuralNetworks
             get { return n; }
             set
             {
-                if (n != value)
+                //if (n != value)
                 {
                     n = value;
                     OnPropertyChanged("FillCommandEnable");
@@ -44,12 +44,22 @@ namespace NeuralNetworks
 
         public static int T { get; set; }
 
+        public static bool NeedRandom { get; set; }
+
         private void updateGrid()
         {
+            Random r = new Random();
             neurals.Clear();
             for (int i = 0; i < N; i++)
             {
-                neurals.Add(new Neural());
+                if (NeedRandom)
+                {
+                    neurals.Add(new Neural { W = r.Next(1, T + 1) });
+                }
+                else
+                {
+                    neurals.Add(new Neural());
+                }
             }
             OnPropertyChanged("Neurals");
         }
