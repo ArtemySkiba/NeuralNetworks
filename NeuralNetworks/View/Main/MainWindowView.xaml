@@ -3,7 +3,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="Диагностика" Height="400" Width="650" WindowStartupLocation="CenterScreen"
+        Title="Диагностика" Height="500" Width="650" WindowStartupLocation="CenterScreen"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:neuralNetworks="clr-namespace:NeuralNetworks"
         d:DataContext="{d:DesignInstance neuralNetworks:MainWindowVM}"

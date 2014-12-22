@@ -123,6 +123,8 @@ namespace NeuralNetworks
                     else
                     {
                         usedAllFourth = true;
+                        fourthCounter = 0;
+                        temp.Add(fourthMGroup[fourthCounter++]);
                     }
                     result.Add(temp);
                 }
@@ -188,6 +190,8 @@ namespace NeuralNetworks
                     }
                     else
                     {
+                        fourthCounter = 0;
+                        temp.Add(fourthMGroupStar[fourthCounter++]);
                         usedAllFourth = true;
                     }
                     result2.Add(temp);
@@ -225,26 +229,30 @@ namespace NeuralNetworks
                 }
             }
 
+            checkForTable(result, result2);
+
+            checkForCapacity(secondMGroup, fourthMGroup, firstMGroup.Count, thirdMGroup.Count, result);
+            checkForCapacity2(secondMGroupStar, fourthMGroupStar, firstMGroupStar.Count, thirdMGroupStar.Count, result2);
+            
             string s = string.Empty;
             foreach (var res in result)
             {
                 int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
                 s += (temp == T) + Environment.NewLine;
             }
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
+            Result += s + Environment.NewLine;
 
             s = string.Empty;
             foreach (var res in result2)
             {
                 int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
-                s += (temp == T-1) + Environment.NewLine;
+                s += (temp == T - 1) + Environment.NewLine;
             }
-            MessageBox.Show(s);
+            //MessageBox.Show(s);
+            Result += s + Environment.NewLine;
 
-            checkForTable(result, result2);
 
-            checkForCapacity(secondMGroup, fourthMGroup, firstMGroup.Count, thirdMGroup.Count, result);
-            checkForCapacity2(secondMGroupStar, fourthMGroupStar, firstMGroupStar.Count, thirdMGroupStar.Count, result2);
             OnPropertyChanged("Result");
         }
 
