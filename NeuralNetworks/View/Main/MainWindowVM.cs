@@ -89,14 +89,14 @@ namespace NeuralNetworks
         {
             Result = string.Empty;
             List<Neural> firstMGroup = neurals.Where(ne => ne.W == T).ToList();
-            List<Neural> secondMGroup = neurals.Where(ne => ne.W > T / 2 && ne.W < T).ToList();
-            List<Neural> thirdMGroup = neurals.Where(ne => ne.W == T / 2).ToList();
-            List<Neural> fourthMGroup = neurals.Where(ne => ne.W < T / 2).ToList();
+            List<Neural> secondMGroup = neurals.Where(ne => ne.W > (double)T / 2 && ne.W < T).ToList();
+            List<Neural> thirdMGroup = neurals.Where(ne => ne.W == (double)T / 2).ToList();
+            List<Neural> fourthMGroup = neurals.Where(ne => ne.W < (double)T / 2).ToList();
 
             List<Neural> firstMGroupStar = neurals.Where(ne => ne.W == T - 1).ToList();
-            List<Neural> secondMGroupStar = neurals.Where(ne => ne.W > (T - 1) / 2 && ne.W < T - 1).ToList();
-            List<Neural> thirdMGroupStar = neurals.Where(ne => ne.W == (T - 1) / 2).ToList();
-            List<Neural> fourthMGroupStar = neurals.Where(ne => ne.W < (T - 1) / 2).ToList();
+            List<Neural> secondMGroupStar = neurals.Where(ne => ne.W > (double)(T - 1) / 2 && ne.W < T - 1).ToList();
+            List<Neural> thirdMGroupStar = neurals.Where(ne => ne.W == (double)(T - 1) / 2).ToList();
+            List<Neural> fourthMGroupStar = neurals.Where(ne => ne.W < (double)(T - 1) / 2).ToList();
 
             List<List<Neural>> result = new List<List<Neural>>();
             bool usedAllFourth = false;
