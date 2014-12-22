@@ -145,9 +145,16 @@ namespace NeuralNetworks
                     result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
                 }
                 var temp = new List<Neural> { thirdMGroup[thirdMGroup.Count - 1] };
-                if (fourthMGroup.Count > secondMGroup.Count)
+                if (!usedAllFourth && fourthCounter < fourthMGroup.Count)
                 {
-                    temp.Add(fourthMGroup[secondMGroup.Count]);
+                    temp.Add(fourthMGroup[fourthCounter]);
+                }
+                else
+                {
+                    if (fourthMGroup.Any())
+                    {
+                        temp.Add(fourthMGroup.Last());
+                    }
                 }
                 result.Add(temp);
             }
@@ -213,9 +220,16 @@ namespace NeuralNetworks
                     result2.Add(new List<Neural> { thirdMGroupStar[i], thirdMGroupStar[i + 1] });
                 }
                 var temp = new List<Neural> { thirdMGroupStar[thirdMGroupStar.Count - 1] };
-                if (fourthMGroupStar.Count > secondMGroupStar.Count)
+                if (!usedAllFourth && fourthCounter < fourthMGroupStar.Count)
                 {
-                    temp.Add(fourthMGroupStar[secondMGroupStar.Count]);
+                    temp.Add(fourthMGroupStar[fourthCounter]);
+                }
+                else
+                {
+                    if (fourthMGroupStar.Any())
+                    {
+                        temp.Add(fourthMGroupStar.Last());
+                    }
                 }
                 result2.Add(temp);
             }
