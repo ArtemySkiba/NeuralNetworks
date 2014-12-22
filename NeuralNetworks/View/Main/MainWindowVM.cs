@@ -131,14 +131,14 @@ namespace NeuralNetworks
             //3 group
             if (thirdMGroup.Count % 2 == 0)
             {
-                for (int i = 0; i < thirdMGroup.Count - 1; i++)
+                for (int i = 0; i < thirdMGroup.Count; i+=2)
                 {
                     result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
                 }
             }
             else
             {
-                for (int i = 0; i < thirdMGroup.Count - 2; i++)
+                for (int i = 0; i < thirdMGroup.Count - 1; i+=2)
                 {
                     result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
                 }
@@ -197,14 +197,14 @@ namespace NeuralNetworks
             //3 group
             if (thirdMGroupStar.Count % 2 == 0)
             {
-                for (int i = 0; i < thirdMGroupStar.Count - 1; i++)
+                for (int i = 0; i < thirdMGroupStar.Count; i+=2)
                 {
                     result2.Add(new List<Neural> { thirdMGroupStar[i], thirdMGroupStar[i + 1] });
                 }
             }
             else
             {
-                for (int i = 0; i < thirdMGroupStar.Count - 2; i++)
+                for (int i = 0; i < thirdMGroupStar.Count - 1; i+=2)
                 {
                     result2.Add(new List<Neural> { thirdMGroupStar[i], thirdMGroupStar[i + 1] });
                 }
@@ -225,11 +225,21 @@ namespace NeuralNetworks
                 }
             }
 
-            //foreach (var res in result)
-            //{
-            //    int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
-            //    MessageBox.Show((temp == T).ToString());
-            //}
+            string s = string.Empty;
+            foreach (var res in result)
+            {
+                int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
+                s += (temp == T) + Environment.NewLine;
+            }
+            MessageBox.Show(s);
+
+            s = string.Empty;
+            foreach (var res in result2)
+            {
+                int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
+                s += (temp == T-1) + Environment.NewLine;
+            }
+            MessageBox.Show(s);
 
             checkForTable(result, result2);
 
