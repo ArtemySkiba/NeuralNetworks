@@ -142,7 +142,20 @@ namespace NeuralNetworks
                 var temp = new List<Neural> { thirdMGroup[thirdMGroup.Count - 1] };
                 if (fourthMGroup.Any())
                 {
-                    temp.Add(fourthMGroup.FirstOrDefault(f => f.W + thirdMGroup[thirdMGroup.Count - 1].W == T));
+                    Neural t = fourthMGroup.FirstOrDefault(f => f.W + thirdMGroup[thirdMGroup.Count - 1].W == T);
+                    if (t != null)
+                    {
+                        temp.Add(t);
+                    }
+                    else
+                    {
+                        int i = 0;
+                        while (temp.Sum(te => te.W) != T)
+                        {
+                            temp.Add(fourthMGroup[i++]);
+                        }
+
+                    }
                 }
 
                 result.Add(temp);
@@ -231,7 +244,20 @@ namespace NeuralNetworks
                 var temp = new List<Neural> { thirdMGroupStar[thirdMGroupStar.Count - 1] };
                 if (fourthMGroupStar.Any())
                 {
-                    temp.Add(fourthMGroupStar.FirstOrDefault(f => f.W + thirdMGroupStar[thirdMGroupStar.Count - 1].W == T - 1));
+                    Neural t = fourthMGroupStar.FirstOrDefault(f => f.W + thirdMGroupStar[thirdMGroupStar.Count - 1].W == T);
+                    if (t != null)
+                    {
+                        temp.Add(t);
+                    }
+                    else
+                    {
+                        int i = 0;
+                        while (temp.Sum(te => te.W) != T)
+                        {
+                            temp.Add(fourthMGroup[i++]);
+                        }
+
+                    }
                 }
 
                 result2.Add(temp);
