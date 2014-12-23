@@ -35,7 +35,7 @@
         </DataGrid>
        
         <Button Command="{Binding FillCommand}" Content="Заполнить" Grid.Row="3" Grid.Column="2" Margin="5" IsDefault="True"/>
-        <CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="Автозаполнение" IsChecked="{Binding NeedRandom, UpdateSourceTrigger=PropertyChanged}"/>
+        <!--<CheckBox Grid.Row="3" Grid.Column="0" Margin="5" Content="Автозаполнение" IsChecked="{Binding NeedRandom, UpdateSourceTrigger=PropertyChanged}"/>-->
         
         <TextBox Margin="5" IsReadOnly="True" Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" Width="200" Text="{Binding Result}" VerticalScrollBarVisibility="Auto"/>
         
