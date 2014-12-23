@@ -160,7 +160,7 @@ namespace NeuralNetworks
                 {
                     if (fourthMGroup.Any())
                     {
-                        temp.Add(fourthMGroup.Last());
+                        temp.Add(fourthMGroup.FirstOrDefault(f => f.W + thirdMGroup[thirdMGroup.Count-1].W == T));
                     }
                 }
                 result.Add(temp);
@@ -270,7 +270,7 @@ namespace NeuralNetworks
                 {
                     if (fourthMGroupStar.Any())
                     {
-                        temp.Add(fourthMGroupStar.Last());
+                        temp.Add(fourthMGroupStar.FirstOrDefault(f => f.W + thirdMGroupStar[thirdMGroupStar.Count - 1].W == T));
                     }
                 }
                 result2.Add(temp);
@@ -281,7 +281,42 @@ namespace NeuralNetworks
             {
                 for (int i = fourthCounter; i < fourthMGroupStar.Count; i++)
                 {
-                    result2.Add(new List<Neural> { fourthMGroupStar[i] });
+                    int res = fourthMGroupStar[i].W;
+                    if (res == T)
+                    {
+                        result.Add(new List<Neural> { fourthMGroupStar[i] });
+                        break;
+                    }
+                    else
+                    {
+                        if (++fourthCounter == fourthMGroupStar.Count)
+                        {
+                            fourthCounter = 0;
+                        }
+                        res += fourthMGroupStar[fourthCounter].W;
+                        if (res == T)
+                        {
+                            result.Add(new List<Neural> { fourthMGroupStar[i], fourthMGroupStar[fourthCounter] });
+                            break;
+                        }
+                        else
+                        {
+                            List<Neural> tempNeurals = new List<Neural>();
+                            foreach (var resN in result2)
+                            {
+                                tempNeurals.AddRange(resN);
+                            }
+                            foreach (var tempNeural in tempNeurals)
+                            {
+                                int a = res + tempNeural.W;
+                                if (a == T)
+                                {
+                                    result.Add(new List<Neural> { fourthMGroupStar[i], fourthMGroupStar[fourthCounter], tempNeural });
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
