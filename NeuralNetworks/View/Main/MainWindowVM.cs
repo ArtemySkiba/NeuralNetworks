@@ -58,7 +58,7 @@ namespace NeuralNetworks
                 }
                 else
                 {
-                    neurals.Add(new Neural());
+                    neurals.Add(new Neural { Number = i + 1 });
                 }
             }
             OnPropertyChanged("Neurals");
@@ -84,10 +84,7 @@ namespace NeuralNetworks
         {
             get
             {
-                return fillCommand = fillCommand ?? new Command(() =>
-                {
-                    getSamples();
-                });
+                return fillCommand = fillCommand ?? new Command(getSamples);
             }
         }
 
@@ -143,14 +140,14 @@ namespace NeuralNetworks
             //3 group
             if (thirdMGroup.Count % 2 == 0)
             {
-                for (int i = 0; i < thirdMGroup.Count; i+=2)
+                for (int i = 0; i < thirdMGroup.Count; i += 2)
                 {
                     result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
                 }
             }
             else
             {
-                for (int i = 0; i < thirdMGroup.Count - 1; i+=2)
+                for (int i = 0; i < thirdMGroup.Count - 1; i += 2)
                 {
                     result.Add(new List<Neural> { thirdMGroup[i], thirdMGroup[i + 1] });
                 }
@@ -170,11 +167,46 @@ namespace NeuralNetworks
             }
 
             //4 group
-            if (!usedAllFourth)
+            if (!usedAllFourth && fourthCounter < fourthMGroup.Count)
             {
-                for (int i = secondMGroup.Count + 1; i < fourthMGroup.Count; i++)
+                for (int i = fourthCounter; i < fourthMGroup.Count; i++)
                 {
-                    result.Add(new List<Neural> { fourthMGroup[i] });
+                    int res = fourthMGroup[i].W;
+                    if (res == T)
+                    {
+                        result.Add(new List<Neural> { fourthMGroup[i] });
+                        break;
+                    }
+                    else
+                    {
+                        if (++fourthCounter == fourthMGroup.Count)
+                        {
+                            fourthCounter = 0;
+                        }
+                        res += fourthMGroup[fourthCounter].W;
+                        if (res == T)
+                        {
+                            result.Add(new List<Neural> {fourthMGroup[i], fourthMGroup[fourthCounter]});
+                            break;
+                        }
+                        else
+                        {
+                            List<Neural> tempNeurals = new List<Neural>();
+                            foreach (var resN in result)
+                            {
+                                tempNeurals.AddRange(resN);
+                            }
+                            foreach (var tempNeural in tempNeurals)
+                            {
+                                int a = res + tempNeural.W;
+                                if (a == T)
+                                {
+                                    result.Add(new List<Neural> { fourthMGroup[i], fourthMGroup[fourthCounter], tempNeural });
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -218,14 +250,14 @@ namespace NeuralNetworks
             //3 group
             if (thirdMGroupStar.Count % 2 == 0)
             {
-                for (int i = 0; i < thirdMGroupStar.Count; i+=2)
+                for (int i = 0; i < thirdMGroupStar.Count; i += 2)
                 {
                     result2.Add(new List<Neural> { thirdMGroupStar[i], thirdMGroupStar[i + 1] });
                 }
             }
             else
             {
-                for (int i = 0; i < thirdMGroupStar.Count - 1; i+=2)
+                for (int i = 0; i < thirdMGroupStar.Count - 1; i += 2)
                 {
                     result2.Add(new List<Neural> { thirdMGroupStar[i], thirdMGroupStar[i + 1] });
                 }
@@ -245,37 +277,54 @@ namespace NeuralNetworks
             }
 
             //4 group
-            if (!usedAllFourth)
+            if (!usedAllFourth && fourthCounter < fourthMGroupStar.Count)
             {
-                for (int i = secondMGroupStar.Count + 1; i < fourthMGroupStar.Count; i++)
+                for (int i = fourthCounter; i < fourthMGroupStar.Count; i++)
                 {
                     result2.Add(new List<Neural> { fourthMGroupStar[i] });
                 }
             }
 
-            checkForTable(result, result2);
+            //checkForTable(result, result2);
 
-            checkForCapacity(secondMGroup, fourthMGroup, firstMGroup.Count, thirdMGroup.Count, result);
-            checkForCapacity2(secondMGroupStar, fourthMGroupStar, firstMGroupStar.Count, thirdMGroupStar.Count, result2);
-            
-            string s = string.Empty;
+            //checkForCapacity(secondMGroup, fourthMGroup, firstMGroup.Count, thirdMGroup.Count, result);
+            //checkForCapacity2(secondMGroupStar, fourthMGroupStar, firstMGroupStar.Count, thirdMGroupStar.Count, result2);
+
+            //string s = string.Empty;
+            //foreach (var res in result)
+            //{
+            //    int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
+            //    s += (temp == T) + Environment.NewLine;
+            //}
+            ////MessageBox.Show(s);
+            //Result += s + Environment.NewLine;
+
+            //s = string.Empty;
+            //foreach (var res in result2)
+            //{
+            //    int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
+            //    s += (temp == T - 1) + Environment.NewLine;
+            //}
+            ////MessageBox.Show(s);
+            //Result += s + Environment.NewLine;
+
             foreach (var res in result)
             {
-                int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
-                s += (temp == T) + Environment.NewLine;
+                foreach (var r in res)
+                {
+                    Result += "W"+r.Number + " ";
+                }
+                Result += Environment.NewLine;
             }
-            //MessageBox.Show(s);
-            Result += s + Environment.NewLine;
 
-            s = string.Empty;
             foreach (var res in result2)
             {
-                int temp = res.Sum(r => r.W * Convert.ToInt32(r.X));
-                s += (temp == T - 1) + Environment.NewLine;
+                foreach (var r in res)
+                {
+                    Result += "W" + r.Number + " ";
+                }
+                Result += Environment.NewLine;
             }
-            //MessageBox.Show(s);
-            Result += s + Environment.NewLine;
-
 
             OnPropertyChanged("Result");
         }
@@ -287,7 +336,7 @@ namespace NeuralNetworks
             {
                 sum += second.W;
             }
-            sum = secondMGroup.Count*T - sum;
+            sum = secondMGroup.Count * T - sum;
             bool check = true;
             foreach (var fourth in fourthMGroup)
             {
@@ -319,7 +368,7 @@ namespace NeuralNetworks
             {
                 sum += second.W;
             }
-            sum = (secondMGroup.Count * T-1) - sum;
+            sum = (secondMGroup.Count * T - 1) - sum;
             bool check = true;
             foreach (var fourth in fourthMGroup)
             {
@@ -457,7 +506,7 @@ namespace NeuralNetworks
 
             Result += "Количество наборов 1 = " + result1.Count + Environment.NewLine;
             Result += "Количество наборов 2 = " + result2.Count + Environment.NewLine;
-            
+
         }
 
         #endregion
