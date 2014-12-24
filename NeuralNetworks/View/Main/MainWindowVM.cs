@@ -346,18 +346,32 @@ namespace NeuralNetworks
 
                 foreach (var res in result)
                 {
-                    foreach (var r in res)
+                    for (int i = 1; i <= N; i++)
                     {
-                        Result += "W" + r.Number + " ";
+                        if (!res.Select(r => r.Number).Contains(i))
+                        {
+                            Result += string.Format("¬X{0} ", i);
+                        }
+                        else
+                        {
+                            Result += string.Format("X{0} ", i);
+                        }
                     }
                     Result += Environment.NewLine;
                 }
-
+                Result += Environment.NewLine;
                 foreach (var res in result2)
                 {
-                    foreach (var r in res)
+                    for (int i = 1; i <= N; i++)
                     {
-                        Result += "W" + r.Number + " ";
+                        if (!res.Select(r => r.Number).Contains(i))
+                        {
+                            Result += string.Format("¬X{0} ", i);
+                        }
+                        else
+                        {
+                            Result += string.Format("X{0} ", i);
+                        }
                     }
                     Result += Environment.NewLine;
                 }
